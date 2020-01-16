@@ -30,6 +30,10 @@ project(SSTCameraSoftware)
 # message(STATUS "${BoldGreen} pybind11 ${ColourReset}")
 # add_subdirectory(pybind11)
 
+# Python stuff
+set(PYTHON_PACKAGE_PATH "${CMAKE_BINARY_DIR}/python/sstcam/_ext")
+file(MAKE_DIRECTORY ${PYTHON_PACKAGE_PATH})
+file(COPY "${CMAKE_CURRENT_SOURCE_DIR}/python/__init__.py" DESTINATION ${PYTHON_PACKAGE_PATH})
 
 message(STATUS "${BoldBlue}sstcam-base${ColourReset}")
 add_subdirectory(sstcam-base)

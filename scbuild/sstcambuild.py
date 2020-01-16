@@ -2,7 +2,7 @@ import argparse
 import subprocess
 import os
 import yaml
-from shutil import copyfile
+from shutil import copyfile,copytree
 
 sub_projects = {'sstcam-base': 'https://github.com/sstcam/sstcam-base.git',
                 'sstcam-template': 'https://github.com/sflis/sstcam-template.git',
@@ -33,14 +33,16 @@ def main():
         with open(os.path.join(root_path, ".sstcam-buildconfig.yaml"), 'w') as f:
             f.write(" ")
 
-        sstcam_build_dir = os.path.dirname(os.path.dirname(os.path.realpath(__file__)))
+        sstcam_build_system_dir = os.path.dirname(os.path.dirname(os.path.realpath(__file__)))
+        template_dir = os.path.join(sstcam_build_system_dir,'root_template')
         create_dir(os.path.join(root_path, 'build'))
         for sp, git_url in sub_projects.items():
             print("Cloning project {}".format(sp))
             subprocess.run(['git', 'clone', git_url])
-        copyfile(os.path.join(sstcam_build_dir, 'CMakeLists.txt'),
+        copyfile(os.path.join(template_dir, 'CMakeLists.txt'),
                 os.path.join(root_path, 'CMakeLists.txt'))
-
+        copytree(os.path.join(template_dir,'python'),
+                os.path.join(root_path,'python'))
 
         # deps_dir = os.path.join(root_path, 'deps')
         # create_dir(os.path.join(deps_dir, "build"))
