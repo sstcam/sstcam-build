@@ -1,6 +1,8 @@
 from setuptools import setup, find_packages
 
-install_requires = ["pyyaml", ]
+install_requires = [
+    "pyyaml",
+]
 
 setup(
     name="SST Camera Build System",
@@ -25,10 +27,5 @@ setup(
         "License :: OSI Approved :: GNU Lesser General Public License v3 or later (LGPLv3+)",
         "Topic :: Software Development :: Libraries :: Python Modules",
     ],
-    entry_points={
-        "console_scripts": [
-            "sc-build=scbuild.sstcambuild:main",
-        ]
-    },
+    entry_points={"console_scripts": ["sc-build=scbuild.sstcambuild:main",]},
 )
-
