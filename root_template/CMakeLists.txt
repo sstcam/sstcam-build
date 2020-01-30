@@ -21,7 +21,7 @@ if(NOT WIN32)
 endif()
 
 project(SSTCameraSoftware)
-
+include(cmake/python_setup.cmake)
 # option(PYTHON "Build the Python wrapper" ON)
 # option(UNITTEST "Enable unit test" OFF)
 # option(COMPILER_WARNINGS "Turn compiler warnings on" OFF)
