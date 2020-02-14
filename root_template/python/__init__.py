@@ -4,7 +4,7 @@ import importlib.util
 import sys
 
 
-def _get_extention_dir():
+def _get_extension_dir():
     return _os.path.join(_os.path.dirname(_os.path.realpath(__file__)), "_ext")
 
 
@@ -12,7 +12,7 @@ def _import_module(module_name, extension_name=None):
     if extension_name is None:
         sub_mod_name = module_name.split(".")[-1]
         extension_name = f"sstcam_{sub_mod_name}"
-    mod_path = _os.path.join(_get_extention_dir(), extension_name)
+    mod_path = _os.path.join(_get_extension_dir(), extension_name)
     loader = machinery.ExtensionFileLoader(extension_name, mod_path)
     spec = importlib.util.spec_from_loader(extension_name, loader)
     mod = loader.create_module(spec)

@@ -30,11 +30,20 @@ include(cmake/python_setup.cmake)
 # message(STATUS "${BoldGreen} pybind11 ${ColourReset}")
 # add_subdirectory(pybind11)
 
+# TODO: Should make testing optional
+enable_testing()
+
+
 # Python stuff
+find_package(Python3 COMPONENTS Interpreter)
 set(PYTHON_PACKAGE_PATH "${CMAKE_BINARY_DIR}/python/sstcam/")
 set(PYTHON_EXTENSIONS_PATH "${CMAKE_BINARY_DIR}/python/sstcam/_ext")
+set(PYTHON_TESTS_PATH "${CMAKE_BINARY_DIR}/python/tests")
 file(MAKE_DIRECTORY ${PYTHON_PACKAGE_PATH})
 file(MAKE_DIRECTORY ${PYTHON_EXTENSIONS_PATH})
+file(MAKE_DIRECTORY ${PYTHON_TESTS_PATH})
+
+
 file(COPY "${CMAKE_CURRENT_SOURCE_DIR}/python/__init__.py" DESTINATION ${PYTHON_PACKAGE_PATH})
 
 
