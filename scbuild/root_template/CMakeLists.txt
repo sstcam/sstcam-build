@@ -37,7 +37,9 @@ enable_testing()
 
 
 # Python stuff
-find_package(Python3 COMPONENTS Interpreter)
+#find_package(Python3 COMPONENTS Interpreter)
+find_package(PythonInterp)
+#find_package(PythonLibs)
 set(PYTHON_PACKAGE_PATH "${CMAKE_BINARY_DIR}/python/sstcam/")
 set(PYTHON_EXTENSIONS_PATH "${CMAKE_BINARY_DIR}/python/sstcam/_ext")
 set(PYTHON_TESTS_PATH "${CMAKE_BINARY_DIR}/python/tests")
@@ -46,6 +48,9 @@ file(MAKE_DIRECTORY ${PYTHON_EXTENSIONS_PATH})
 file(MAKE_DIRECTORY ${PYTHON_TESTS_PATH})
 file(COPY "${CMAKE_CURRENT_SOURCE_DIR}/python/__init__.py" DESTINATION ${PYTHON_PACKAGE_PATH})
 file(COPY "${CMAKE_CURRENT_SOURCE_DIR}/setup.py" DESTINATION "${CMAKE_BINARY_DIR}/python")
+
+# this is because of https://github.com/pybind/pybind11/issues/1395
+add_definitions(-Wno-error=cast-function-type)
 
 include(FetchContent)
 FetchContent_Declare(
