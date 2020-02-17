@@ -67,8 +67,15 @@ def devup(args):
     current_dir = os.getcwd()
     build_descr_file = os.path.join(current_dir, ".sstcam-buildconfig.yaml")
     if not os.path.exists(build_descr_file):
-        print("This is not an sstcam build directory. Aborting update...")
-        exit()
+        while current_dir != "/":
+            current_dir = os.path.dirname(current_dir)
+            build_descr_file = os.path.join(current_dir, ".sstcam-buildconfig.yaml")
+            if os.path.exists(build_descr_file):
+                os.chdir(current_dir)
+                break
+        else:
+            print("This is not an sstcam project directory. Aborting update...")
+            exit()
 
     print("Updating build...")
     template_dir = os.path.join(get_sstcambuild_dir(), "root_template")
