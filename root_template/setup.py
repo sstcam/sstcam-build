@@ -21,7 +21,7 @@ setup(
     install_requires=install_requires,
     # package_dir = {"sstcam": "python/sstcam"},
     package_data = {
-        'icf': ['sstcam/_ext/*']
+        '': ['_ext/*']
       },
     classifiers=[
         "Programming Language :: Python",
