@@ -9,11 +9,11 @@ For a normal install run
 
 or in the root directory of the project do
 
-`pip install .`
+`pip3 install .`
 
 If you are developing it is recommendended to do
 
-`pip install -e .`
+`pip3 install -e .`
 
 instead and adding the `--user` option if not installing in a conda env. This lets changes made to the project automatically propagate to the install without the need to reinstall.
 
