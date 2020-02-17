@@ -50,13 +50,13 @@ file(COPY "${CMAKE_CURRENT_SOURCE_DIR}/python/__init__.py" DESTINATION ${PYTHON_
 file(COPY "${CMAKE_CURRENT_SOURCE_DIR}/setup.py" DESTINATION "${CMAKE_BINARY_DIR}/python")
 
 # this is because of https://github.com/pybind/pybind11/issues/1395
-add_definitions(-Wno-error=cast-function-type)
+# add_definitions(-Wno-error=cast-function-type)
 
 include(FetchContent)
 FetchContent_Declare(
     pybind11
     GIT_REPOSITORY https://github.com/pybind/pybind11
-    GIT_TAG        v2.2.3
+    GIT_TAG        v2.4.3
 )
 
 FetchContent_GetProperties(pybind11)
