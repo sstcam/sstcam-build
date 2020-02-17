@@ -34,6 +34,8 @@ include(cmake/python_setup.cmake)
 enable_testing()
 
 
+
+
 # Python stuff
 find_package(Python3 COMPONENTS Interpreter)
 set(PYTHON_PACKAGE_PATH "${CMAKE_BINARY_DIR}/python/sstcam/")
@@ -44,6 +46,20 @@ file(MAKE_DIRECTORY ${PYTHON_EXTENSIONS_PATH})
 file(MAKE_DIRECTORY ${PYTHON_TESTS_PATH})
 file(COPY "${CMAKE_CURRENT_SOURCE_DIR}/python/__init__.py" DESTINATION ${PYTHON_PACKAGE_PATH})
 file(COPY "${CMAKE_CURRENT_SOURCE_DIR}/setup.py" DESTINATION "${CMAKE_BINARY_DIR}/python")
+
+include(FetchContent)
+FetchContent_Declare(
+    pybind11
+    GIT_REPOSITORY https://github.com/pybind/pybind11
+    GIT_TAG        v2.2.3
+)
+
+FetchContent_GetProperties(pybind11)
+if(NOT pybind11_POPULATED)
+    FetchContent_Populate(pybind11)
+    add_subdirectory(${pybind11_SOURCE_DIR} ${pybind11_BINARY_DIR})
+endif()
+
 
 
 message(STATUS "${BoldBlue}sstcam-base${ColourReset}")
