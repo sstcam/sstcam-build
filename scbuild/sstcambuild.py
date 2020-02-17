@@ -28,11 +28,11 @@ def clone_repos(sub_projects, sel_mode):
 
 
 def update_files(src, dest):
-    subprocess.run(["rsync", "-ai", src, '--include="/*"', dest])
+    subprocess.run(["rsync", "-ai","--exclude","__pycache__", src, '--include="/*"', dest])
 
 
 def get_sstcambuild_dir():
-    return os.path.dirname(os.path.dirname(os.path.realpath(__file__)))
+    return (os.path.dirname(os.path.realpath(__file__)))
 
 
 def init(args):
@@ -67,7 +67,7 @@ def devup(args):
     current_dir = os.getcwd()
     build_descr_file = os.path.join(current_dir, ".sstcam-buildconfig.yaml")
     if not os.path.exists(build_descr_file):
-        while current_dir != "/":
+        while current_dir != "":
             current_dir = os.path.dirname(current_dir)
             build_descr_file = os.path.join(current_dir, ".sstcam-buildconfig.yaml")
             if os.path.exists(build_descr_file):

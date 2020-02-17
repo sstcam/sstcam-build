@@ -18,6 +18,7 @@ setup(
     # extras_requires={
     #     #'encryption': ['cryptography']
     # },
+    package_data = {'': ['root_template/**/*','root_template/*']},
     classifiers=[
         "Programming Language :: Python",
         "Programming Language :: Python :: 3",
