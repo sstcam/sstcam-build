@@ -5,8 +5,6 @@ import yaml
 from shutil import copyfile, copytree
 
 sub_projects = {
-    "sstcam-base": "github.com/sstcam/sstcam-base.git",
-    "sstcam-template": "github.com/sflis/sstcam-template.git",
     "sstcam-common": "github.com/sstcam/sstcam-common.git",
 }
 mode = {"https": "https://", "ssh": "ssh://git@"}
