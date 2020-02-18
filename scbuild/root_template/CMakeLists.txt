@@ -56,7 +56,6 @@ if((APPLE) OR (EXISTS $ENV{CONDA_PREFIX}))
 endif()
 
 
-
 # Python stuff
 #find_package(Python3 COMPONENTS Interpreter)
 find_package(PythonInterp)
@@ -72,7 +71,8 @@ file(COPY "${CMAKE_CURRENT_SOURCE_DIR}/setup.py" DESTINATION "${CMAKE_BINARY_DIR
 
 # this is because of https://github.com/pybind/pybind11/issues/1395
 # add_definitions(-Wno-error=cast-function-type)
-
+message(STATUS "${BoldCyan}Pulling dependencies${ColourReset}")
+message(STATUS "${Cyan}pybind11${ColourReset}")
 include(FetchContent)
 FetchContent_Declare(
     pybind11
@@ -86,6 +86,8 @@ if(NOT pybind11_POPULATED)
     add_subdirectory(${pybind11_SOURCE_DIR} ${pybind11_BINARY_DIR})
 endif()
 
+
+message(STATUS "${Cyan}doctest${ColourReset}")
 FetchContent_Declare(
     doctest
     GIT_REPOSITORY https://github.com/onqtam/doctest
@@ -97,6 +99,22 @@ if(NOT doctest_POPULATED)
     add_subdirectory(${doctest_SOURCE_DIR} ${doctest_BINARY_DIR})
 endif()
 set(DOCTEST_INCLUDE_DIR ${doctest_SOURCE_DIR}/doctest CACHE INTERNAL "Path to include folder for doctest")
+
+message(STATUS "${Cyan}glog${ColourReset}")
+FetchContent_Declare(
+    glogproj
+    GIT_REPOSITORY https://github.com/google/glog
+    GIT_TAG         v0.4.0
+)
+FetchContent_GetProperties(glogproj)
+if(NOT glogproj_POPULATED)
+    FetchContent_Populate(glogproj)
+    message(HERE ${glogproj_SOURCE_DIR} ${glogproj_BINARY_DIR})
+    add_subdirectory(${glogproj_SOURCE_DIR} ${glogproj_BINARY_DIR})
+endif()
+#set(GLOG_INCLUDE_DIR ${glog_SOURCE_DIR}/doctest CACHE INTERNAL "Path to include folder for doctest")
+
+
 
 message(STATUS "${BoldBlue}sstcam-common${ColourReset}")
 add_subdirectory(sstcam-common)
