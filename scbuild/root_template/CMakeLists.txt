@@ -78,10 +78,6 @@ if(NOT doctest_POPULATED)
 endif()
 set(DOCTEST_INCLUDE_DIR ${doctest_SOURCE_DIR}/doctest CACHE INTERNAL "Path to include folder for doctest")
 
-message(STATUS "${BoldBlue}sstcam-base${ColourReset}")
-add_subdirectory(sstcam-base)
-message(STATUS "${BoldBlue}sstcam-template${ColourReset}")
-add_subdirectory(sstcam-template)
 message(STATUS "${BoldBlue}sstcam-common${ColourReset}")
 add_subdirectory(sstcam-common)
 
