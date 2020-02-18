@@ -22,6 +22,7 @@ endif()
 
 project(SSTCameraSoftware)
 include(cmake/python_setup.cmake)
+include(cmake/sstcam_test.cmake)
 # option(PYTHON "Build the Python wrapper" ON)
 # option(UNITTEST "Enable unit test" OFF)
 # option(COMPILER_WARNINGS "Turn compiler warnings on" OFF)
@@ -65,7 +66,17 @@ if(NOT pybind11_POPULATED)
     add_subdirectory(${pybind11_SOURCE_DIR} ${pybind11_BINARY_DIR})
 endif()
 
-
+FetchContent_Declare(
+    doctest
+    GIT_REPOSITORY https://github.com/onqtam/doctest
+    GIT_TAG        2.3.6
+)
+FetchContent_GetProperties(doctest)
+if(NOT doctest_POPULATED)
+    FetchContent_Populate(doctest)
+    add_subdirectory(${doctest_SOURCE_DIR} ${doctest_BINARY_DIR})
+endif()
+set(DOCTEST_INCLUDE_DIR ${doctest_SOURCE_DIR}/doctest CACHE INTERNAL "Path to include folder for doctest")
 
 message(STATUS "${BoldBlue}sstcam-base${ColourReset}")
 add_subdirectory(sstcam-base)

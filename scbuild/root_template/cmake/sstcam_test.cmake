@@ -1,0 +1,7 @@
+macro(sstcam_tests EXE SRC TARGET LIBTARGET)
+    add_executable(${EXE} ${SRC} $<TARGET_OBJECTS:${TARGET}>)
+    add_test(NAME ${EXE} COMMAND ${EXE})
+    target_link_libraries(${EXE} ${LIBTARGET})
+    target_include_directories(${EXE} PUBLIC ctests ${DOCTEST_INCLUDE_DIR})
+    target_compile_features(${EXE} PRIVATE cxx_std_11)
+endmacro()
