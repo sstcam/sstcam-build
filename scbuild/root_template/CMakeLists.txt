@@ -129,6 +129,19 @@ if(NOT glogproj_POPULATED)
 endif()
 #set(GLOG_INCLUDE_DIR ${glog_SOURCE_DIR}/doctest CACHE INTERNAL "Path to include folder for doctest")
 
+message(STATUS "${Cyan}open62541${ColourReset}")
+FetchContent_Declare(
+    open62541proj
+    GIT_REPOSITORY https://github.com/open62541/open62541
+    GIT_TAG         v1.0.1
+)
+FetchContent_GetProperties(open62541proj)
+if(NOT open62541proj_POPULATED)
+    FetchContent_Populate(open62541proj)
+    set(MESSAGE_QUIET ON)
+    add_subdirectory(${open62541proj_SOURCE_DIR} ${open62541proj_BINARY_DIR})
+    unset(MESSAGE_QUIET)
+endif()
 
 
 message(STATUS "${BoldBlue}sstcam-common${ColourReset}")
