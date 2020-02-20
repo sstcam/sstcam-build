@@ -21,15 +21,13 @@ if(NOT WIN32)
 endif()
 
 project(SSTCameraSoftware)
+
+
 include(cmake/python_setup.cmake)
 include(cmake/sstcam_test.cmake)
 # option(PYTHON "Build the Python wrapper" ON)
 # option(UNITTEST "Enable unit test" OFF)
 # option(COMPILER_WARNINGS "Turn compiler warnings on" OFF)
-# option(NUMPY "Enable returning NumPy arrays in a few methods" ON)
-
-# message(STATUS "${BoldGreen} pybind11 ${ColourReset}")
-# add_subdirectory(pybind11)
 
 # TODO: Should make testing optional
 enable_testing()
@@ -59,6 +57,7 @@ endif()
 # Python stuff
 #find_package(Python3 COMPONENTS Interpreter)
 find_package(PythonInterp)
+
 #find_package(PythonLibs)
 set(PYTHON_PACKAGE_PATH "${CMAKE_BINARY_DIR}/python/sstcam/")
 set(PYTHON_EXTENSIONS_PATH "${CMAKE_BINARY_DIR}/python/sstcam/_ext")

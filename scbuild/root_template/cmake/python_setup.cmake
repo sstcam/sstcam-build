@@ -20,7 +20,7 @@ macro(python_module PYTARGET LIBTARGET MODULE_NAME SRC_FILES)
         add_custom_command(TARGET ${PYTARGET} POST_BUILD
                       COMMAND ${CMAKE_COMMAND} -E create_symlink "${PROJECT_SOURCE_DIR}/pytests/" "${CMAKE_BINARY_DIR}/python/tests/${MODULE_NAME}")
         if(PYTHONINTERP_FOUND)
-          add_test(NAME "${PROJECT_NAME}_pytests" COMMAND python3 -m pytest -r a -v WORKING_DIRECTORY "${CMAKE_BINARY_DIR}/python/tests/${MODULE_NAME}")
+          add_test(NAME "${PROJECT_NAME}_pytests" COMMAND python3 -m pytest --suppress-no-test-exit-code -r a -v  WORKING_DIRECTORY "${CMAKE_BINARY_DIR}/python/tests/${MODULE_NAME}")
         endif()
     endif()
 endmacro()
