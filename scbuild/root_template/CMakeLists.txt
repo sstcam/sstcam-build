@@ -121,4 +121,5 @@ endif()
 
 message(STATUS "${BoldBlue}sstcam-common${ColourReset}")
 add_subdirectory(sstcam-common)
-
+message(STATUS "${BoldBlue}sstcam-control${ColourReset}")
+add_subdirectory(sstcam-control)

@@ -6,6 +6,7 @@ from shutil import copyfile, copytree
 
 sub_projects = {
     "sstcam-common": "github.com/sstcam/sstcam-common.git",
+    "sstcam-control": "github.com/sstcam/sstcam-control.git",
 }
 mode = {"https": "https://", "ssh": "ssh://git@"}
 dependencies = {"pybind11": "https://github.com/pybind/pybind11.git"}
