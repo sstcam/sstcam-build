@@ -12,9 +12,6 @@ setup(
     name="sstcam",
     version="0.1.0",
     description="The SSTCAM software python package.",
-    # author="Samuel Flis",
-    # author_email="samuel.d.flis@gmail.com",
-    # url="https://github.com/sflis/pyicf",
     packages=find_packages(),
     provides=["sstcam"],
     license="GNU Lesser General Public License v3 or later",
@@ -26,11 +23,6 @@ setup(
     classifiers=[
         "Programming Language :: Python",
         "Programming Language :: Python :: 3",
-        "Development Status :: 4 - Beta",
-        "Intended Audience :: Developers",
-        "Operating System :: OS Independent",
-        "License :: OSI Approved :: GNU Lesser General Public License v3 or later (LGPLv3+)",
-        "Topic :: Software Development :: Libraries :: Python Modules",
     ],
     # entry_points={
     #     "console_scripts": [

@@ -22,11 +22,6 @@ setup(
     classifiers=[
         "Programming Language :: Python",
         "Programming Language :: Python :: 3",
-        "Development Status :: 4 - Beta",
-        "Intended Audience :: Developers",
-        "Operating System :: OS Independent",
-        "License :: OSI Approved :: GNU Lesser General Public License v3 or later (LGPLv3+)",
-        "Topic :: Software Development :: Libraries :: Python Modules",
     ],
     entry_points={"console_scripts": ["sc-build=scbuild.sstcambuild:main",]},
 )

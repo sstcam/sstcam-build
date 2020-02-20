@@ -25,13 +25,16 @@ project(SSTCameraSoftware)
 
 include(cmake/python_setup.cmake)
 include(cmake/sstcam_test.cmake)
-# option(PYTHON "Build the Python wrapper" ON)
 # option(UNITTEST "Enable unit test" OFF)
 # option(COMPILER_WARNINGS "Turn compiler warnings on" OFF)
 
 # TODO: Should make testing optional
 enable_testing()
-
+set(CMAKE_CXX_STANDARD 17)
+set(CMAKE_CXX_STANDARD_REQUIRED ON)
+set(CMAKE_CXX_EXTENSIONS OFF)
+# Save executables to bin directory
+set(CMAKE_RUNTIME_OUTPUT_DIRECTORY ${CMAKE_BINARY_DIR}/bin)
 
 if((APPLE) OR (EXISTS $ENV{CONDA_PREFIX}))
   # The following settings were copied from
@@ -53,6 +56,7 @@ if((APPLE) OR (EXISTS $ENV{CONDA_PREFIX}))
   set(CMAKE_INSTALL_RPATH_USE_LINK_PATH TRUE)
 endif()
 
+find_package(Git QUIET)
 
 # Python stuff
 #find_package(Python3 COMPONENTS Interpreter)
