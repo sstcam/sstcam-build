@@ -58,6 +58,15 @@ endif()
 
 find_package(Git QUIET)
 
+function(message)
+    if (NOT MESSAGE_QUIET)
+        _message(${ARGN})
+    endif()
+endfunction()
+
+
+
+
 # Python stuff
 #find_package(Python3 COMPONENTS Interpreter)
 find_package(PythonInterp)
@@ -112,8 +121,11 @@ FetchContent_Declare(
 FetchContent_GetProperties(glogproj)
 if(NOT glogproj_POPULATED)
     FetchContent_Populate(glogproj)
-    message(HERE ${glogproj_SOURCE_DIR} ${glogproj_BINARY_DIR})
+    set(MESSAGE_QUIET ON)
+    set(WITH_GFLAGS OFF CACHE BOOL "Use gflags")
     add_subdirectory(${glogproj_SOURCE_DIR} ${glogproj_BINARY_DIR})
+    unset(MESSAGE_QUIET)
+
 endif()
 #set(GLOG_INCLUDE_DIR ${glog_SOURCE_DIR}/doctest CACHE INTERNAL "Path to include folder for doctest")
 
