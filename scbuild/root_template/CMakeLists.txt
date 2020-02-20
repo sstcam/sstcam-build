@@ -143,8 +143,11 @@ if(NOT open62541proj_POPULATED)
     unset(MESSAGE_QUIET)
 endif()
 
+# set protobuf include dir to null
+set(Protobuf_IMPORT_DIR )
 
 message(STATUS "${BoldBlue}sstcam-common${ColourReset}")
 add_subdirectory(sstcam-common)
+
 message(STATUS "${BoldBlue}sstcam-control${ColourReset}")
 add_subdirectory(sstcam-control)
