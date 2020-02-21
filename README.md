@@ -1,6 +1,17 @@
 # sstcam-build
 The build system for SSTCam
 
+## Docker setup
+
+1. Define a workspace directory (`WORKSPACE_DIR` in the following), create it and cd into it.
+
+2. Clone the sstcam-build repository, cd into it and create a docker image named sstcam:
+
+`docker create sstcam .`
+
+3. Run docker iteractively exporting the workspace directory:
+
+`docker run -it -v ${WORKSPACE_DIR}:/workspace -w /workspace sstcam bash` 
 
 ## Installation
 For a normal install run
@@ -21,7 +32,7 @@ instead and adding the `--user` option if not installing in a conda env. This le
 
 This package provides a small application that is used to initialize the sstcam build system by cloning the specific repositories and setting up the necessary directories. The steps to build the sstcam software are:
 
-1. Create a directory where you want the build to take place
+1. Inside the `WORKSPACE_DIR`, create a directory where you want the source files to be (`SOURCE_DIR`)
 2. Run `sc-build init` inside the directory
 3. Step into the newly created `build` directory
 4. Run `cmake ..` (add appropriate cmake options as needed)
