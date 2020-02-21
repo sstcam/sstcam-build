@@ -48,10 +48,12 @@ def init(args):
         exit()
     build_descr = {}
 
-    sel_mode = "https"  # mode[]
+    sel_mode = "https"
     if args.ssh:
-        sel_mode = "ssh"  # mode["ssh"]
+        sel_mode = "ssh"
+
     build_descr["git_mode"] = sel_mode
+    build_descr["build_type"] = args.build_type
 
     with open(build_descr_file, "w") as f:
         yaml.dump(build_descr, f)

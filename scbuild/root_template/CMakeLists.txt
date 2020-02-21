@@ -21,7 +21,17 @@ if(NOT WIN32)
 endif()
 
 project(SSTCameraSoftware)
-
+IF(EXISTS "${CMAKE_SOURCE_DIR}/sstcam-control")
+  set(SSTCAM_FULL ON)
+  message("${Magenta}###################################")
+  message("${Magenta}#######Setting up SSTCam FULL######")
+  message("${Magenta}###################################${ColourReset}")
+else()
+  set(SSTCAM_FULL OFF)
+  message("${Yellow}###################################")
+  message("${Yellow}#######Setting up SSTCam Lite######")
+  message("${Yellow}###################################${ColourReset}")
+endif()
 
 include(cmake/python_setup.cmake)
 include(cmake/sstcam_test.cmake)
@@ -64,14 +74,8 @@ function(message)
     endif()
 endfunction()
 
-
-
-
-# Python stuff
-#find_package(Python3 COMPONENTS Interpreter)
+# Finding the python interpreter and setting up the python package directory structure in build
 find_package(PythonInterp)
-
-#find_package(PythonLibs)
 set(PYTHON_PACKAGE_PATH "${CMAKE_BINARY_DIR}/python/sstcam/")
 set(PYTHON_EXTENSIONS_PATH "${CMAKE_BINARY_DIR}/python/sstcam/_ext")
 set(PYTHON_TESTS_PATH "${CMAKE_BINARY_DIR}/python/tests")
@@ -81,8 +85,11 @@ file(MAKE_DIRECTORY ${PYTHON_TESTS_PATH})
 file(COPY "${CMAKE_CURRENT_SOURCE_DIR}/python/__init__.py" DESTINATION ${PYTHON_PACKAGE_PATH})
 file(COPY "${CMAKE_CURRENT_SOURCE_DIR}/setup.py" DESTINATION "${CMAKE_BINARY_DIR}/python")
 
-# this is because of https://github.com/pybind/pybind11/issues/1395
-# add_definitions(-Wno-error=cast-function-type)
+
+###############################################################################
+#                              DEPENDENCIES
+###############################################################################
+# Here we pull down dependencies directly into the build
 message(STATUS "${BoldCyan}Pulling dependencies${ColourReset}")
 message(STATUS "${Cyan}pybind11${ColourReset}")
 include(FetchContent)
@@ -112,56 +119,34 @@ if(NOT doctest_POPULATED)
 endif()
 set(DOCTEST_INCLUDE_DIR ${doctest_SOURCE_DIR}/doctest CACHE INTERNAL "Path to include folder for doctest")
 
-#message(STATUS "${Cyan}glog${ColourReset}")
-#FetchContent_Declare(
-#    glogproj
-#    GIT_REPOSITORY https://github.com/google/glog
-#    GIT_TAG         v0.4.0
-#)
-#FetchContent_GetProperties(glogproj)
-#if(NOT glogproj_POPULATED)
-#    FetchContent_Populate(glogproj)
-#    set(MESSAGE_QUIET ON)
-#    set(WITH_GFLAGS OFF CACHE BOOL "Use gflags")
-#    add_subdirectory(${glogproj_SOURCE_DIR} ${glogproj_BINARY_DIR})
-#    unset(MESSAGE_QUIET)
-#
-#endif()
-#set(GLOG_INCLUDE_DIR ${glog_SOURCE_DIR}/doctest CACHE INTERNAL "Path to include folder for doctest")
+if(SSTCAM_FULL)
+  message(STATUS "${Cyan}open62541${ColourReset}")
+  FetchContent_Declare(
+      open62541proj
+      GIT_REPOSITORY https://github.com/open62541/open62541
+      GIT_TAG         v1.0.1
+  )
+  FetchContent_GetProperties(open62541proj)
+  if(NOT open62541proj_POPULATED)
+      FetchContent_Populate(open62541proj)
+      set(MESSAGE_QUIET ON)
+      add_subdirectory(${open62541proj_SOURCE_DIR} ${open62541proj_BINARY_DIR})
+      unset(MESSAGE_QUIET)
+  endif()
 
-#message(STATUS "${Cyan}cppzmq${ColourReset}")
-#FetchContent_Declare(
-#    cppzmqproj
-#    GIT_REPOSITORY https://github.com/zeromq/cppzmq
-#    GIT_TAG         v4.4.1
-#)
-#FetchContent_GetProperties(cppzmqproj)
-#if(NOT cppzmqproj_POPULATED)
-#    FetchContent_Populate(cppzmqproj)
-#    set(MESSAGE_QUIET ON)
-#    add_subdirectory(${cppzmqproj_SOURCE_DIR} ${cppzmqproj_BINARY_DIR})
-#    unset(MESSAGE_QUIET)
-#endif()
-
-message(STATUS "${Cyan}open62541${ColourReset}")
-FetchContent_Declare(
-    open62541proj
-    GIT_REPOSITORY https://github.com/open62541/open62541
-    GIT_TAG         v1.0.1
-)
-FetchContent_GetProperties(open62541proj)
-if(NOT open62541proj_POPULATED)
-    FetchContent_Populate(open62541proj)
-    set(MESSAGE_QUIET ON)
-    add_subdirectory(${open62541proj_SOURCE_DIR} ${open62541proj_BINARY_DIR})
-    unset(MESSAGE_QUIET)
+  # set protobuf include dir to null
+  set(Protobuf_IMPORT_DIR )
 endif()
 
-# set protobuf include dir to null
-set(Protobuf_IMPORT_DIR )
+###############################################################################
+#                      Adding subprojects and repos
+###############################################################################
+
 
 message(STATUS "${BoldBlue}sstcam-common${ColourReset}")
 add_subdirectory(sstcam-common)
 
-message(STATUS "${BoldBlue}sstcam-control${ColourReset}")
-add_subdirectory(sstcam-control)
+if(SSTCAM_FULL)
+  message(STATUS "${BoldBlue}sstcam-control${ColourReset}")
+  add_subdirectory(sstcam-control)
+endif()
