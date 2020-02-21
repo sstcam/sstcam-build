@@ -129,6 +129,20 @@ if(NOT glogproj_POPULATED)
 endif()
 #set(GLOG_INCLUDE_DIR ${glog_SOURCE_DIR}/doctest CACHE INTERNAL "Path to include folder for doctest")
 
+message(STATUS "${Cyan}cppzmq${ColourReset}")
+FetchContent_Declare(
+    cppzmqproj
+    GIT_REPOSITORY https://github.com/zeromq/cppzmq
+    GIT_TAG         v4.4.1
+)
+FetchContent_GetProperties(cppzmqproj)
+if(NOT cppzmqproj_POPULATED)
+    FetchContent_Populate(cppzmqproj)
+    set(MESSAGE_QUIET ON)
+    add_subdirectory(${cppzmqproj_SOURCE_DIR} ${cppzmqproj_BINARY_DIR})
+    unset(MESSAGE_QUIET)
+endif()
+
 message(STATUS "${Cyan}open62541${ColourReset}")
 FetchContent_Declare(
     open62541proj
