@@ -9,7 +9,8 @@ sub_projects = {
     "sstcam-control": "github.com/sstcam/sstcam-control.git",
 }
 mode = {"https": "https://", "ssh": "ssh://git@"}
-dependencies = {"pybind11": "https://github.com/pybind/pybind11.git"}
+
+build_types = {"lite": ["sstcam-common"], "full": ["sstcam-common", "sstcam-control"]}
 
 
 def create_dir(dir_name):
@@ -27,11 +28,13 @@ def clone_repos(sub_projects, sel_mode):
 
 
 def update_files(src, dest):
-    subprocess.run(["rsync", "-ai","--exclude","__pycache__", src, '--include="/*"', dest])
+    subprocess.run(
+        ["rsync", "-ai", "--exclude", "__pycache__", src, '--include="/*"', dest]
+    )
 
 
 def get_sstcambuild_dir():
-    return (os.path.dirname(os.path.realpath(__file__)))
+    return os.path.dirname(os.path.realpath(__file__))
 
 
 def init(args):
@@ -53,7 +56,8 @@ def init(args):
     with open(build_descr_file, "w") as f:
         yaml.dump(build_descr, f)
 
-    clone_repos(sub_projects, sel_mode)
+    sel_proj = {k: sub_projects[k] for k in build_types[args.build_type]}
+    clone_repos(sel_proj, sel_mode)
 
     create_dir(os.path.join(root_path, "build"))
 
@@ -92,13 +96,21 @@ def main():
     init_parser = subparsers.add_parser("init", help="Initialize the build")
     init_parser.set_defaults(func=init)
     init_parser.add_argument(
-        "-s, --ssh",
+        "-s",
+        "--ssh",
         dest="ssh",
         action="store_true",
         help="Use ssh key authorization with Github",
     )
     init_parser.add_argument(
-        "-f, --force", dest="force", action="store_true", help="Force command"
+        "build_type",
+        nargs="?",
+        default="full",
+        choices=["full", "lite"],
+        help="Selects the type of build. The `full` is used for the camera system, for analysis `lite` is used.",
+    )
+    init_parser.add_argument(
+        "-f", "--force", dest="force", action="store_true", help="Force command"
     )
 
     devup_parser = subparsers.add_parser(

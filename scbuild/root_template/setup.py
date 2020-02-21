@@ -17,9 +17,7 @@ setup(
     license="GNU Lesser General Public License v3 or later",
     install_requires=install_requires,
     # package_dir = {"sstcam": "python/sstcam"},
-    package_data = {
-        '': ['_ext/*']
-      },
+    package_data={"": ["_ext/*"]},
     classifiers=[
         "Programming Language :: Python",
         "Programming Language :: Python :: 3",

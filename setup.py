@@ -1,8 +1,6 @@
 from setuptools import setup, find_packages
 
-install_requires = [
-    "pyyaml", "pytest", "pytest-custom_exit_code"
-]
+install_requires = ["pyyaml", "pytest", "pytest-custom_exit_code"]
 
 setup(
     name="SST Camera Build System",
@@ -18,7 +16,7 @@ setup(
     # extras_requires={
     #     #'encryption': ['cryptography']
     # },
-    package_data = {'': ['root_template/**/*','root_template/*']},
+    package_data={"": ["root_template/**/*", "root_template/*"]},
     classifiers=[
         "Programming Language :: Python",
         "Programming Language :: Python :: 3",
