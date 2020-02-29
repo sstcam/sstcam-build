@@ -24,12 +24,14 @@ macro(sstcam_library )
         target_include_directories(${LIBTARGET} PUBLIC
             $<BUILD_INTERFACE:${CMAKE_CURRENT_SOURCE_DIR}/include/>
             $<INSTALL_INTERFACE:include/>
-            ${_ADD_INCLUDE_DIRS}
+            PRIVATE
+                ${_ADD_INCLUDE_DIRS}
             )
         if(_SSTCAM_LIBRARY_LINK_LIBRARIES)
             target_link_libraries(${LIBTARGET} ${_SSTCAM_LIBRARY_LINK_LIBRARIES})
         endif()
         install (TARGETS ${LIBTARGET} EXPORT ${PROJECT_TARGETS} LIBRARY DESTINATION lib)
+        install (DIRECTORY ${PROJECT_SOURCE_DIR}/include/ DESTINATION include)
     else()
         message( FATAL_ERROR "sstcam_library: 'TARGET_SRCS' and 'HEADER_LIST' arguments required." )
     endif()
