@@ -7,7 +7,7 @@ macro(sstcam_library )
     cmake_parse_arguments( _SSTCAM_LIBRARY "${_OPTIONS_ARGS}" "${_ONE_VALUE_ARGS}" "${_MULTI_VALUE_ARGS}" ${ARGN} )
 
 
-    set(LIBTARGET ${PROJECT_NAME}_c)
+    set(LIBTARGET ${PROJECT_NAME})
 
     #Dealing with optional arguments
     set(_ADD_INCLUDE_DIRS)

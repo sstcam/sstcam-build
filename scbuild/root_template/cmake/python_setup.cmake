@@ -3,7 +3,7 @@ macro(sstcam_python_module)
     set( _ONE_VALUE_ARGS MODULE_NAME)
     set( _MULTI_VALUE_ARGS LIBTARGETS SRC_FILES INCLUDE_DIRS)
 
-    cmake_parse_arguments( _PYTHON_MODULE "${_OPTIONS_ARGS}" "${_ONE_VALUE_ARGS}" "${_MULTI_VALUE_ARGS}" ${ARGN} )
+    cmake_parse_arguments(_PYTHON_MODULE "${_OPTIONS_ARGS}" "${_ONE_VALUE_ARGS}" "${_MULTI_VALUE_ARGS}" ${ARGN} )
     #Checking that we have required arguments
     if(NOT _PYTHON_MODULE_MODULE_NAME)
       message( FATAL_ERROR "sstcam_python_module: 'MODULE_NAME' argument required." )
@@ -16,7 +16,7 @@ macro(sstcam_python_module)
     endif()
 
     message(STATUS "Adding python bindings")
-    set(PYTARGET ${PROJECT_NAME})
+    set(PYTARGET ${PROJECT_NAME}_py)
 
     # pybind
     pybind11_add_module(${PYTARGET} ${_PYTHON_MODULE_SRC_FILES})
@@ -36,7 +36,7 @@ macro(sstcam_python_module)
     endif()
 
     # Creating a symlink to the python extension in the main python package directory tree
-    add_custom_command(TARGET ${PYTARGET} POST_BUILD COMMAND ${CMAKE_COMMAND} -E create_symlink "$<TARGET_FILE:${PYTARGET}>" "${PYTHON_EXTENSIONS_PATH}/${PYTARGET}")
+    add_custom_command(TARGET ${PYTARGET} POST_BUILD COMMAND ${CMAKE_COMMAND} -E create_symlink "$<TARGET_FILE:${PYTARGET}>" "${PYTHON_EXTENSIONS_PATH}/sstcam_${_PYTHON_MODULE_MODULE_NAME}")
     # Creating a symlink to python tests and add the folder to the ctest test runner
     if(EXISTS "${PROJECT_SOURCE_DIR}/pytests/")
         message(STATUS "Adding python tests")
