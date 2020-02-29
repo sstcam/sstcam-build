@@ -21,6 +21,8 @@ if(NOT WIN32)
 endif()
 
 project(SSTCameraSoftware)
+
+
 IF(EXISTS "${CMAKE_SOURCE_DIR}/sstcam-control")
   set(SSTCAM_FULL ON)
   message("${Magenta}###################################")
@@ -33,8 +35,11 @@ else()
   message("${Yellow}###################################${ColourReset}")
 endif()
 
+
+set_property(GLOBAL PROPERTY USE_FOLDERS ON)
 include(cmake/python_setup.cmake)
 include(cmake/sstcam_test.cmake)
+include(cmake/sstcam_library.cmake)
 # option(UNITTEST "Enable unit test" OFF)
 # option(COMPILER_WARNINGS "Turn compiler warnings on" OFF)
 
@@ -68,6 +73,7 @@ endif()
 
 find_package(Git QUIET)
 
+# This function helps to quite verbose includes
 function(message)
     if (NOT MESSAGE_QUIET)
         _message(${ARGN})
