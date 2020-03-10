@@ -1,0 +1,8 @@
+channels:
+  - conda-forge
+dependencies:
+  - protobuf
+  - glog
+  - conda-build
+  - python=3.6
+  - cmake

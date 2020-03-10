@@ -104,6 +104,7 @@ FetchContent_Declare(
     pybind11
     GIT_REPOSITORY https://github.com/pybind/pybind11
     GIT_TAG        v2.4.3
+    GIT_SHALLOW TRUE
 )
 
 FetchContent_GetProperties(pybind11)
@@ -118,6 +119,7 @@ FetchContent_Declare(
     doctest
     GIT_REPOSITORY https://github.com/onqtam/doctest
     GIT_TAG        2.3.6
+    GIT_SHALLOW TRUE
 )
 FetchContent_GetProperties(doctest)
 if(NOT doctest_POPULATED)
@@ -132,6 +134,7 @@ if(SSTCAM_FULL)
       open62541proj
       GIT_REPOSITORY https://github.com/open62541/open62541
       GIT_TAG         v1.0.1
+      GIT_SHALLOW TRUE
   )
   FetchContent_GetProperties(open62541proj)
   if(NOT open62541proj_POPULATED)

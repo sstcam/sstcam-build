@@ -16,7 +16,6 @@ macro(sstcam_library )
     endif()
 
 
-
     #These are required arguments
     if(_SSTCAM_LIBRARY_TARGET_SRCS AND _SSTCAM_LIBRARY_HEADER_LIST)
 

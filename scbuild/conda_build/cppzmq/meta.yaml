@@ -1,0 +1,18 @@
+package:
+  name: cppzmq
+  version: 4.4.1
+
+source:
+  fn: v4.4.1.tar.gz
+  url: https://github.com/zeromq/cppzmq/archive/v4.4.1.tar.gz
+
+build:
+  string: "0"
+
+requirements:
+    build:
+      # - python
+      # - setuptools
+#       - pybind11
+
+
