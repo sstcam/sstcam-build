@@ -1,4 +1,4 @@
-# sstcam-build
+docker build -t sstcam:latest sstcam-build/# sstcam-build
 The build system for SSTCam
 
 ## Docker setup
@@ -7,7 +7,7 @@ The build system for SSTCam
 
 2. Clone the sstcam-build repository, cd into it and create a docker image named sstcam:
 
-`docker create sstcam .`
+`docker build -t sstcam:latest sstcam-build`
 
 3. Run docker iteractively exporting the workspace directory:
 

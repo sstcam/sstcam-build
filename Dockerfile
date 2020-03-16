@@ -2,6 +2,7 @@ FROM centos:8
 WORKDIR /tmp
 RUN dnf -y update \
     && dnf -y install epel-release \
+    && dnf -y install 'dnf-command(config-manager)'\
     && dnf config-manager --set-enabled PowerTools \
     && dnf -y groupinstall 'development tools' \
     && dnf -y install boost-devel cppzmq-devel protobuf-devel glog-devel git cmake \
